@@ -63,3 +63,24 @@ describe('Add Partner', () => {
 		assert.equal(father.id, mother.partner)
 	})
 })
+
+describe('Find Siblings', () => {
+	const child1 = new Person({
+		name: 'Test Child 1',
+		gender: 'm'
+	})
+	const child2 = new Person({
+		name: 'Test Child 2',
+		gender: 'f'
+	})
+	const mother2 = new Person({
+		name: 'Test Mother 2',
+		gender: 'm'
+	})
+	mother2.addChild(child1)
+	mother2.addChild(child2)
+
+	it('should find siblings', () => {
+		assert.deepEqual(child1.getSiblings(), [child2.id])
+	})
+})
