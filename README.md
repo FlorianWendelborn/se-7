@@ -6,7 +6,7 @@ Gruppe: S.H.I.E.L.D
 
 ## Setup
 
-1. Unpack the enclosed zip files for "se7"
+1. Unpack the enclosed zip files for "se7" or `git clone https://github.com/dodekeract/se-7`
 2. Install node.js
 3. Install npm (usually already installed by node)
 4. Navigate to the unpacked folder (in terminal)
