@@ -1,6 +1,7 @@
 // region import
 
 import state from './state'
+import {createPerson} from './person'
 
 // endregion
 // region init
@@ -25,7 +26,7 @@ GET
 
 // region add
 
-const addPerson = ({name, gender}) => state.set(createPerson(data))
+const addPerson = data => state.set(createPerson(data))
 
 // endregion
 

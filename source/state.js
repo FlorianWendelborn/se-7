@@ -18,13 +18,18 @@ const load = () => {
 	}
 }
 
-const get = id => state._[id]
-const set = (id, data) => state._[id] = data
+const get = id => Object.assign(state._[id], {id})
+const set = data => {
+	const {id} = data;
+	delete data.id
+	state._[id] = data
+	save()
+}
 const list = () => Object.keys(state._)
 
 // endregion
 // region export
 
-export default {load, save, get}
+export default {load, save, get, set, list}
 
 // endregion
