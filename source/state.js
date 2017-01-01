@@ -1,5 +1,6 @@
 // region import
 
+import clone from 'clone'
 import {readFileSync as read, writeFileSync as write} from 'fs'
 
 // internal
@@ -25,6 +26,11 @@ const load = () => {
 
 const get = id => new Person(Object.assign(state._[id], {id}))
 const set = person => {
+	const fakeState = clone(state._)
+	fakeState[person.id] = person.stringify()
+
+	detectCycles(fakeState)
+
 	state._[person.id] = person.stringify()
 	save()
 }
@@ -34,13 +40,25 @@ const list = () => Object.keys(state._)
 
 // region cycle
 
-const detectCycles = () => {
-	this.list().forEach(person => detectCycles(person.id, person.children))
+let cancel = false
+
+const detectCycles = state => {
+	cancel = false
+	Object.keys(state).forEach(person => detectCycle(state, person, state[person].children))
 }
 
-const detectCycle = (id, children) => {
-	if (children.includes(id)) throw new Error('cycle')
-	children.forEach(child => detectCycle(id, state.get(child)))
+const detectCycle = (state, id, children) => {
+	console.log(id, children)
+	if (cancel) return
+	if (children.includes(id)) {
+		cancel = true
+		throw new Error('cycle')
+	}
+	for (let i = 0; i < children.length; i++) {
+		if (cancel) return
+		const child = children[i]
+		detectCycle(state, id, state[child].children)
+	}
 }
 
 // endregion

@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "cli-table": "^0.3.1",
+    "clone": "^2.1.0",
     "easy-tree": "0.0.3",
     "inquirer": "^2.0.0",
     "uuid": "^3.0.1"
