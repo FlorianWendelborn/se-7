@@ -1,6 +1,6 @@
 # Software Engineering Aufgabenblatt 7
 
-Gruppe: S.H.I.E.L.D
+Gruppe: S.H.I.E.L.D.
 
 ![](screenshot.png)
 
