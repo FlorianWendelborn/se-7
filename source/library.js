@@ -22,10 +22,6 @@ GET
 
 // region get
 
-const getChildren = person => {
-	person.children.forEach(child => state.get(child).print())
-}
-
 const getSiblings = person => {
 	// TODO
 }

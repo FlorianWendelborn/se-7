@@ -10,27 +10,85 @@ import Person from './person'
 
 // endregion
 
-const father = new Person({
+const father0 = new Person({
 	name: 'father0',
 	gender: 'm'
 })
 
-const mother = new Person({
+const mother0 = new Person({
 	name: 'mother0',
 	gender: 'f'
 })
 
-const child = new Person({
+const child0 = new Person({
 	name: 'child0',
 	gender: 'm'
 })
 
-state.set(father)
-state.set(child)
+const child1 = new Person({
+	name: 'child1',
+	gender: 'f'
+})
 
-mother.addChild(child)
-father.addChild(child)
+const grandpa0 = new Person({
+	name: 'grandpa0',
+	gender: 'm'
+})
 
-mother.addPartner(father)
+const grandma0 = new Person({
+	name: 'grandma0',
+	gender: 'f'
+})
 
-mother.print()
+const grandma1 = new Person({
+	name: 'grandma1',
+	gender: 'f'
+})
+
+const grandpa1 = new Person({
+	name: 'grandpa1',
+	gender: 'm'
+})
+
+const uncle0 = new Person({
+	name: 'uncle0',
+	gender: 'm'
+})
+
+const aunt0 = new Person({
+	name: 'aunt0',
+	gender: 'f'
+})
+
+// gp0
+
+grandpa0.addPartner(grandma0)
+
+grandma0.addChild(mother0)
+grandpa0.addChild(mother0)
+
+grandpa0.addChild(uncle0)
+grandma0.addChild(uncle0)
+
+// gp1
+
+grandpa1.addPartner(grandma1)
+grandpa1.addChild(aunt0)
+grandma1.addChild(aunt0)
+grandpa1.addChild(father0)
+grandma1.addChild(father0)
+
+// p0
+
+father0.addChild(child0)
+father0.addChild(child1)
+
+mother0.addChild(child0)
+mother0.addChild(child1)
+
+mother0.addPartner(father0)
+
+// c0
+
+// child0.printUncle('f')
+child0.printAunt('f')

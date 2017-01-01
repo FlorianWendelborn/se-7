@@ -51,7 +51,7 @@ export default class Person {
 		state.set(child)
 	}
 
-	addPartner = person => {
+	addPartner = person => { // TODO self
 		if (person.partner) return false
 		if (this.partner) return false
 
@@ -73,18 +73,65 @@ export default class Person {
 
 	print = () => {
 		const table = new Table({
-			head: ['key', 'value']
+			head: ['key', 'value', 'uuid']
 		})
 		table.push(
-			['Name', this.name],
-			['Gender', ({
+			['name', this.name, this.id],
+			['gender', ({
 				m: 'male',
 				f: 'female'
 			})[this.gender]],
-			['Father', this.father || 'none'],
-			['Mother', this.mother || 'none']
 		)
+		if (this.father) table.push(['father', state.get(this.father).name, this.father])
+		if (this.mother) table.push(['mother', state.get(this.mother).name, this.mother])
+		if (this.partner) table.push(['partner', state.get(this.partner).name, this.partner])
 		console.log(table.toString())
+	}
+
+	printChildren = () => {
+		this.children.forEach(child => state.get(child).print())
+	}
+
+	getSiblings = () => {
+		let siblings = []
+		if (this.father) siblings.push(...state.get(this.father).children)
+		if (this.mother) siblings.push(...state.get(this.mother).children)
+
+		// ensure uniqueness
+
+		siblings = [...new Set(siblings)]
+
+		// remove self
+
+		siblings = siblings.filter(id => id !== this.id)
+
+		return siblings
+	}
+
+	printSiblings = () => {
+		this.getSiblings().forEach(sibling => state.get(sibling).print())
+	}
+
+	printUncle = gender => {
+		if (gender === 'm' && !this.father) return false
+		if (gender === 'f' && !this.mother) return false
+
+		state
+			.get(gender === 'm' ? this.father : this.mother)
+			.getSiblings()
+			.filter(item => state.get(item).gender === 'm')
+			.forEach(item => state.get(item).print())
+	}
+
+	printAunt = gender => {
+		if (gender === 'm' && !this.father) return false
+		if (gender === 'f' && !this.mother) return false
+
+		state
+			.get(gender === 'm' ? this.father : this.mother)
+			.getSiblings()
+			.filter(item => state.get(item).gender === 'f')
+			.forEach(item => state.get(item).print())
 	}
 
 }
