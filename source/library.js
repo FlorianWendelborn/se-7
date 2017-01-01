@@ -26,7 +26,7 @@ GET
 
 // region add
 
-const addPerson = data => state.set(createPerson(data))
+
 
 // endregion
 

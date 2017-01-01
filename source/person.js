@@ -8,6 +8,20 @@ import state from './state'
 
 // endregion
 
+export default class Person {
+
+	constructor ({name, gender}) {
+		if (!name || !gender) throw new Error('Invalid Person')
+		this.name = name
+		this.gender = gender
+	}
+
+	addChild = child => {
+		
+	}
+
+}
+
 // region create
 
 export const createPerson = ({name, gender}) => ({
