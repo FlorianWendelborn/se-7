@@ -73,11 +73,3 @@ const getGrandchildren = _person => {
 }
 
 // endregion
-
-// region export
-
-export default {
-	addPerson
-}
-
-// endregion

@@ -13,7 +13,7 @@ const state = {
 	_: {}
 }
 
-const save = () => write('./saved.data', JSON.stringify(state._))
+const save = () => write('./saved.data', JSON.stringify(state._, null, 2))
 const load = () => {
 	try {
 		state._ = JSON.parse(read('./saved.data'))

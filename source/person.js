@@ -23,6 +23,10 @@ export default class Person {
 	constructor (data) {
 		if (!data.name || !data.gender) return false
 		Object.assign(this, data)
+
+		// new person?
+
+		if (!data.id) state.set(this)
 	}
 
 	addChild = child => {
@@ -42,8 +46,8 @@ export default class Person {
 
 		// save
 
-		state.save(this)
-		state.save(child)
+		state.set(this)
+		state.set(child)
 	}
 
 	stringify = () => ({

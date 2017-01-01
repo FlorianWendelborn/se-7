@@ -23,6 +23,8 @@ const child = new Person({
 state.set(father)
 state.set(child)
 
+father.addChild(child)
+
 
 
 console.log(state.list())
