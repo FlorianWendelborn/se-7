@@ -8,55 +8,53 @@ import state from './state'
 
 // endregion
 
+// region class
+
 export default class Person {
 
-	constructor ({name, gender}) {
-		if (!name || !gender) throw new Error('Invalid Person')
-		this.name = name
-		this.gender = gender
+	father = null
+	mother = null
+	partner = null
+	gender = null
+	name = ''
+	children = []
+	id = uuid()
+
+	constructor (data) {
+		if (!data.name || !data.gender) return false
+		Object.assign(this, data)
 	}
 
 	addChild = child => {
-		
-	}
+		if (this.gender === 'm') {
+			if (child.father) return false;
+			child.father = this.id
+		} else {
+			if (child.mother) return false
+			child.mother = this.id
+		}
 
-}
+		this.children.push(child.id)
 
-// region create
+		// ensure uniqueness
 
-export const createPerson = ({name, gender}) => ({
-	name,
-	gender,
-	children: [],
-	father: null,
-	mother: null,
-	partner: null,
-	id: uuid()
-})
+		this.children = [...new Set(this.children)]
 
-// endregion
+		// save
 
-// region add
-
-export const addChild = (_parent, _child) => {
-	const parent = state.get(_parent)
-	const child = state.get(_child)
-	if (parent.gender === 'm') {
-		if (child.father) return false
-		child.father = _parent
-		parent.children.push(_child)
-		parent.children = [...new Set(parent.children)]
-		state.save(father)
-		state.save(child)
-	} else {
-		if (child.mother) return false
-		child.mother = _parent
-		parent.children.push(_child)
-		parent.children = [...new Set(parent.children)]
-		state.save(parent)
+		state.save(this)
 		state.save(child)
 	}
-	return true
+
+	stringify = () => ({
+		father: this.father,
+		mother: this.mother,
+		partner: this.partner,
+		gender: this.gender,
+		name: this.name,
+		children: this.children
+	})
+
 }
 
 // endregion

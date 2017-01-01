@@ -1,7 +1,7 @@
 // region import
 
 import state from './state'
-import {createPerson} from './person'
+import Person from './person'
 
 // endregion
 // region init

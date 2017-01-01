@@ -6,24 +6,22 @@ import inquirer from 'inquirer'
 
 import library from './library'
 import state from './state'
-import person from './person'
+import Person from './person'
 
 // endregion
 
-const father = person.create({
+const father = new Person({
 	name: 'father0',
 	gender: 'm'
 })
 
-const child = person.create({
+const child = new Person({
 	name: 'child0',
 	gender: 'm'
 })
 
 state.set(father)
 state.set(child)
-
-person.addChild
 
 
 

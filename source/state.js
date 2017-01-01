@@ -2,6 +2,10 @@
 
 import {readFileSync as read, writeFileSync as write} from 'fs'
 
+// internal
+
+import Person from './person'
+
 // endregion
 // region state
 
@@ -18,11 +22,9 @@ const load = () => {
 	}
 }
 
-const get = id => Object.assign(state._[id], {id})
-const set = data => {
-	const {id} = data;
-	delete data.id
-	state._[id] = data
+const get = id => new Person(Object.assign(state._[id], {id}))
+const set = person => {
+	state._[person.id] = person.stringify()
 	save()
 }
 const list = () => Object.keys(state._)
