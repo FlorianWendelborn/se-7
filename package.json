@@ -4,7 +4,12 @@
   "description": "",
   "main": "build/",
   "scripts": {
-    "test": "mocha"
+    "start": "node build/",
+    "test": "mocha",
+    "build": "npm run clean -s && npm run transpile -s",
+    "clean": "rm -rf build/",
+    "transpile": "babel --presets es2015 source -d build",
+    "watch": "nodemon --watch source --exec \"npm run build -s && npm run start -s\""
   },
   "repository": {
     "type": "git",
