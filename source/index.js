@@ -51,7 +51,17 @@ inquirer.prompt([{
 						break
 					}
 					case 'Partner': {
-						inquirer.prompt()
+						inquirer.prompt([{
+							type: 'input',
+							name: 'from',
+							message: 'UUID or name? (from)'
+						}, {
+							type: 'input',
+							name: 'to',
+							message: 'UUID or name? (to)'
+						}]).then(({from, to}) => {
+							console.log(from, to)
+						})
 						break
 					}
 					case 'Child': {
