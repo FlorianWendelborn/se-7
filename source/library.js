@@ -12,11 +12,7 @@ state.load()
 
 /*
 TODO
-- add first person
-- add non-connected person
 - check cycles
-- add parents
-- add partners
 
 GET
 
@@ -24,51 +20,33 @@ GET
 	- sister, cousin, uncle, grandparents, etc.
 */
 
-// region add
-
-
-
-// endregion
-
-// region cycle
-
-
-
-// endregion
-
-// region parents
-
-
-
-// endregion
-
 // region get
 
-const getChildren = _person => {
+const getChildren = person => {
+	person.children.forEach(child => state.get(child).print())
+}
+
+const getSiblings = person => {
 	// TODO
 }
 
-const getSiblings = _person => {
+const getParents = person => {
 	// TODO
 }
 
-const getParents = _person => {
+const getUncles = person => {
 	// TODO
 }
 
-const getUncles = _person => {
+const getAunts = person => {
 	// TODO
 }
 
-const getAunts = _person => {
+const getGrandparents = person => {
 	// TODO
 }
 
-const getGrandparents = _person => {
-	// TODO
-}
-
-const getGrandchildren = _person => {
+const getGrandchildren = person => {
 	// TODO
 }
 

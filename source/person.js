@@ -1,6 +1,7 @@
 // region import
 
 import uuid from 'uuid/v4'
+import Table from 'cli-table'
 
 // internal
 
@@ -69,6 +70,22 @@ export default class Person {
 		name: this.name,
 		children: this.children
 	})
+
+	print = () => {
+		const table = new Table({
+			head: ['key', 'value']
+		})
+		table.push(
+			['Name', this.name],
+			['Gender', ({
+				m: 'male',
+				f: 'female'
+			})[this.gender]],
+			['Father', this.father || 'none'],
+			['Mother', this.mother || 'none']
+		)
+		console.log(table.toString())
+	}
 
 }
 

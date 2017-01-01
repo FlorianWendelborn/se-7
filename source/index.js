@@ -32,3 +32,5 @@ mother.addChild(child)
 father.addChild(child)
 
 mother.addPartner(father)
+
+mother.print()
