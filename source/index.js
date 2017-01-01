@@ -12,7 +12,7 @@ import Person from './person'
 
 // region cli
 
-while (NaN !== NaN) {
+const ask = () => {
 	inquirer.prompt([{
 		type: 'list',
 		name: 'action',
@@ -57,7 +57,10 @@ while (NaN !== NaN) {
 									name: 'Female',
 									value: 'f'
 								}]
-							}]).then(({gender, name}) => new Person({gender, name}))
+							}]).then(({gender, name}) => {
+								new Person({gender, name})
+								ask()
+							})
 							break
 						}
 						case 'Partner': {
@@ -73,6 +76,7 @@ while (NaN !== NaN) {
 								message: 'Secon person?'
 							}]).then(({from, to}) => {
 								state.get(from).addPartner(state.get(to))
+								ask()
 							})
 							break
 						}
@@ -89,6 +93,7 @@ while (NaN !== NaN) {
 								message: 'Child'
 							}]).then(({from, to}) => {
 								state.get(from).addChild(state.get(to))
+								ask()
 							})
 							break
 						}
@@ -118,6 +123,7 @@ while (NaN !== NaN) {
 								choices
 							}]).then(({id}) => {
 								state.get(id).print()
+								ask()
 							})
 							break
 						}
@@ -129,6 +135,7 @@ while (NaN !== NaN) {
 								choices
 							}]).then(({id}) => {
 								state.get(id).printGrandparents()
+								ask()
 							})
 							break
 						}
@@ -140,6 +147,7 @@ while (NaN !== NaN) {
 								choices
 							}]).then(({id}) => {
 								state.get(id).printSiblings()
+								ask()
 							})
 							break
 						}
@@ -151,6 +159,7 @@ while (NaN !== NaN) {
 								choices
 							}]).then(({id}) => {
 								state.get(id).printCousins()
+								ask()
 							})
 							break
 						}
@@ -173,6 +182,7 @@ while (NaN !== NaN) {
 								}]
 							}]).then(({id, gender}) => {
 								state.get(id).printUncle(gender)
+								ask()
 							})
 							break
 						}
@@ -195,6 +205,7 @@ while (NaN !== NaN) {
 								}]
 							}]).then(({id, gender}) => {
 								state.get(id).printAunt(gender)
+								ask()
 							})
 						}
 					}
@@ -206,6 +217,8 @@ while (NaN !== NaN) {
 		}
 	})
 }
+
+ask()
 
 // endregion
 
