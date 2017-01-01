@@ -3,8 +3,11 @@
 import state from './state'
 
 // endregion
+// region init
 
 state.load()
+
+// endregion
 
 /*
 TODO
@@ -22,9 +25,7 @@ GET
 
 // region add
 
-const addPerson = person => {
-	state.push(person)
-}
+const addPerson = ({name, gender}) => state.set(createPerson(data))
 
 // endregion
 
@@ -40,39 +41,33 @@ const addPerson = person => {
 
 // endregion
 
-// region partners
-
-const marry
-
-// endregion
-
 // region get
 
-const getChildren = person => {
+const getChildren = _person => {
 	// TODO
 }
 
-const getSiblings = person => {
+const getSiblings = _person => {
 	// TODO
 }
 
-const getParents = person => {
+const getParents = _person => {
 	// TODO
 }
 
-const getUncles = person => {
+const getUncles = _person => {
 	// TODO
 }
 
-const getAunts = person => {
+const getAunts = _person => {
 	// TODO
 }
 
-const getGrandparents = person => {
+const getGrandparents = _person => {
 	// TODO
 }
 
-const getGrandchildren = person => {
+const getGrandchildren = _person => {
 	// TODO
 }
 

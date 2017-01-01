@@ -1,13 +1,16 @@
 // region import
 
 import uuid from 'uuid/v4'
+
+// internal
+
 import state from './state'
 
 // endregion
 
 // region create
 
-const create = ({name, gender}) => ({
+export const createPerson = ({name, gender}) => ({
 	name,
 	gender,
 	id: uuid()
@@ -17,14 +20,8 @@ const create = ({name, gender}) => ({
 
 // region add
 
-const addChild = (_parent, _child) => ({
-
-})
-
-// endregion
-
-// region export
-
-export default {create}
+export const addChild = (_parent, _child) => {
+	state.get()
+}
 
 // endregion

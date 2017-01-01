@@ -5,20 +5,26 @@ import {readFileSync as read, writeFileSync as write} from 'fs'
 // endregion
 // region state
 
-let state = []
+const state = {
+	_: {}
+}
 
-const save = () => write('./saved.data', JSON.stringify(state))
+const save = () => write('./saved.data', JSON.stringify(state._))
 const load = () => {
 	try {
-		state = JSON.parse(read('./saved.data'))
+		state._ = JSON.parse(read('./saved.data'))
 	} catch (error) {
-		state = []
+		state._ = {}
 	}
 }
+
+const get = id => state._[id]
+const set = (id, data) => state._[id] = data
+const list = () => Object.keys(state._)
 
 // endregion
 // region export
 
-export default {load, save}
+export default {load, save, get}
 
 // endregion
