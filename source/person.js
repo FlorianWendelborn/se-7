@@ -50,6 +50,17 @@ export default class Person {
 		state.set(child)
 	}
 
+	addPartner = person => {
+		if (person.partner) return false
+		if (this.partner) return false
+
+		this.partner = person.id
+		person.partner = this.id
+
+		state.set(this)
+		state.set(person)
+	}
+
 	stringify = () => ({
 		father: this.father,
 		mother: this.mother,

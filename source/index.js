@@ -15,6 +15,11 @@ const father = new Person({
 	gender: 'm'
 })
 
+const mother = new Person({
+	name: 'mother0',
+	gender: 'f'
+})
+
 const child = new Person({
 	name: 'child0',
 	gender: 'm'
@@ -23,8 +28,7 @@ const child = new Person({
 state.set(father)
 state.set(child)
 
+mother.addChild(child)
 father.addChild(child)
 
-
-
-console.log(state.list())
+mother.addPartner(father)
