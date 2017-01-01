@@ -40,24 +40,19 @@ const list = () => Object.keys(state._)
 
 // region cycle
 
-let cancel = false
-
 const detectCycles = state => {
-	cancel = false
-	Object.keys(state).forEach(person => detectCycle(state, person, state[person].children))
+	Object.keys(state).forEach(person => detectCycle(state, new Set(), state[person].children))
 }
 
-const detectCycle = (state, id, children) => {
-	console.log(id, children)
-	if (cancel) return
-	if (children.includes(id)) {
-		cancel = true
-		throw new Error('cycle')
-	}
+const detectCycle = (state, encountered, children) => {
 	for (let i = 0; i < children.length; i++) {
-		if (cancel) return
 		const child = children[i]
-		detectCycle(state, id, state[child].children)
+		if (encountered.has(child)) {
+			console.error('Cycle Detected! Program terminates. Don\'t worry, your progress is saved and will automatically be loaded again')
+			process.exit(1)
+		}
+		encountered.add(child)
+		detectCycle(state, encountered, state[child].children)
 	}
 }
 
