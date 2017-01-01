@@ -7,6 +7,7 @@ import {readFileSync as read, writeFileSync as write} from 'fs'
 import Person from './person'
 
 // endregion
+
 // region state
 
 const state = {
@@ -30,6 +31,20 @@ const set = person => {
 const list = () => Object.keys(state._)
 
 // endregion
+
+// region cycle
+
+const detectCycles = () => {
+	this.list().forEach(person => detectCycles(person.id, person.children))
+}
+
+const detectCycle = (id, children) => {
+	if (children.includes(id)) throw new Error('cycle')
+	children.forEach(child => detectCycle(id, state.get(child)))
+}
+
+// endregion
+
 // region export
 
 export default {load, save, get, set, list}
