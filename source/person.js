@@ -51,9 +51,10 @@ export default class Person {
 		state.set(child)
 	}
 
-	addPartner = person => { // TODO self
+	addPartner = person => {
 		if (person.partner) return false
 		if (this.partner) return false
+		if (person.id === this.id) return false
 
 		this.partner = person.id
 		person.partner = this.id
