@@ -60,6 +60,16 @@ const aunt0 = new Person({
 	gender: 'f'
 })
 
+const cousin0 = new Person({
+	name: 'cousin0',
+	gender: 'm'
+})
+
+const cousin1 = new Person({
+	name: 'cousin1',
+	gender: 'f'
+})
+
 // gp0
 
 grandpa0.addPartner(grandma0)
@@ -88,7 +98,15 @@ mother0.addChild(child1)
 
 mother0.addPartner(father0)
 
+// u&a
+
+uncle0.addChild(cousin0)
+aunt0.addChild(cousin1)
+
 // c0
 
 // child0.printUncle('f')
-child0.printAunt('f')
+// child0.printAunt('m')
+// child0.printCousins()
+// child0.printGrandparents()
+grandma0.printGrandchildren()
