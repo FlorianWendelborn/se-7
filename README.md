@@ -1,10 +1,12 @@
-Software Engineering Aufgabenblatt 7
+# Software Engineering Aufgabenblatt 7
 
 Gruppe: S.H.I.E.L.D
 
-Setup
------
+## Setup
+
 1. Unpack the enclosed zip files for "se7"
 2. Install node.js
 3. Install npm
-4. Execute program in terminal using: npm run build
+4. Build: `npm run build`
+5. Start: `npm run start`
+6. Test: `npm run test`
