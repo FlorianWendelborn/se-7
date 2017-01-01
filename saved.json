@@ -1,0 +1,20 @@
+{
+  "0fa000e5-ff3c-49c1-9c41-e199b6e252b9": {
+    "father": null,
+    "mother": null,
+    "partner": null,
+    "gender": "m",
+    "name": "father0",
+    "children": [
+      "c635ef3a-dff5-4bce-a1ad-29be818dbbc9"
+    ]
+  },
+  "c635ef3a-dff5-4bce-a1ad-29be818dbbc9": {
+    "father": "0fa000e5-ff3c-49c1-9c41-e199b6e252b9",
+    "mother": null,
+    "partner": null,
+    "gender": "m",
+    "name": "child0",
+    "children": []
+  }
+}

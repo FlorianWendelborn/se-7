@@ -31,7 +31,7 @@ export default class Person {
 
 	addChild = child => {
 		if (this.gender === 'm') {
-			if (child.father) return false;
+			if (child.father) return false
 			child.father = this.id
 		} else {
 			if (child.mother) return false
