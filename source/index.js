@@ -192,7 +192,7 @@ const ask = () => {
 									value: 'f'
 								}]
 							}]).then(({id, gender}) => {
-								state.get(id).printUncle(gender)
+								state.get(id).printUncles(gender)
 								ask()
 							})
 							break
@@ -215,7 +215,7 @@ const ask = () => {
 									value: 'f'
 								}]
 							}]).then(({id, gender}) => {
-								state.get(id).printAunt(gender)
+								state.get(id).printAunts(gender)
 								ask()
 							})
 							break

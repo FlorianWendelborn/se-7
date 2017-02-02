@@ -30,6 +30,8 @@ export default class Person {
 		if (!data.id) state.set(this)
 	}
 
+	// #region add
+
 	addChild = child => {
 		if (this.gender === 'm') {
 			if (child.father) return false
@@ -63,6 +65,94 @@ export default class Person {
 		state.set(person)
 	}
 
+	// #endregion
+
+	// #region get
+
+	getSiblings = () => {
+		let siblings = []
+		if (this.father) siblings.push(...state.get(this.father).children)
+		if (this.mother) siblings.push(...state.get(this.mother).children)
+
+		// remove self
+		siblings = siblings.filter(id => id !== this.id)
+
+		// ensure uniqueness
+		return [...new Set(siblings)]
+	}
+
+	getUncles = gender => {
+		const parent = ({
+			m: 'father',
+			f: 'mother'
+		})[gender]
+
+		if (!this[parent]) return []
+
+		return state
+			.get(this[parent])
+			.getSiblings()
+			.filter(item => state.get(item).gender === 'm')
+	}
+
+	getAunts = gender => {
+		const parent = ({
+			m: 'father',
+			f: 'mother'
+		})[gender]
+
+		if (!this[parent]) return []
+
+		return state
+			.get(this[parent])
+			.getSiblings()
+			.filter(item => state.get(item).gender === 'f')
+	}
+
+	getCousins = () => {
+		let people = []
+		if (this.father) people.push(
+			...state.get(this.father).getSiblings()
+		)
+		if (this.mother) people.push(
+			...state.get(this.mother).getSiblings()
+		)
+
+		let cousins = []
+
+		people.forEach(item => cousins.push(...state.get(item).children))
+
+		// ensure uniqueness
+		return [...new Set(cousins)]
+	}
+
+	getChildren = () => this.children
+
+	getParents = () => [this.father, this.mother].filter(exists => exists)
+
+	getGrandparents = () => {
+		const grandparents = []
+		if (this.father) grandparents.push(...state.get(this.father).getParents())
+		if (this.mother) grandparents.push(...state.get(this.mother).getParents())
+
+		// ensure uniqueness
+		return [...new Set(grandparents)]
+	}
+
+	getGrandchildren = () => {
+		const grandchildren = this
+			.getChildren()
+			.map(child => state.get(child).getChildren())
+			.reduce((a, b) => [...a, ...b], [])
+
+		// ensure uniqueness
+		return [...new Set(grandchildren)]
+	}
+
+	// #endregion
+
+	// #region helper
+
 	stringify = () => ({
 		father: this.father,
 		mother: this.mother,
@@ -71,6 +161,10 @@ export default class Person {
 		name: this.name,
 		children: this.children
 	})
+
+	// #endregion
+
+	// #region print self
 
 	print = () => {
 		const table = new Table({
@@ -89,103 +183,27 @@ export default class Person {
 		console.log(table.toString())
 	}
 
-	printChildren = () => {
-		this.children.forEach(child => state.get(child).print())
-	}
+	// #endregion
 
-	getSiblings = () => {
-		let siblings = []
-		if (this.father) siblings.push(...state.get(this.father).children)
-		if (this.mother) siblings.push(...state.get(this.mother).children)
+	// #region print others
 
-		// ensure uniqueness
+	printChildren = () => this.getChildren.forEach(child => state.get(child).print())
 
-		siblings = [...new Set(siblings)]
+	printSiblings = () => this.getSiblings().forEach(sibling => state.get(sibling).print())
 
-		// remove self
+	printUncles = gender => this.getUncles(gender).forEach(item => state.get(item).print())
 
-		siblings = siblings.filter(id => id !== this.id)
+	printAunts = gender => this.getAunts(gender).forEach(item => state.get(item).print())
 
-		return siblings
-	}
+	printParents = () => this.getParents().forEach(item => state.get(item).print())
 
-	printSiblings = () => {
-		this.getSiblings().forEach(sibling => state.get(sibling).print())
-	}
+	printGrandparents = () => this.getGrandparents().forEach(item => state.get(item).print())
 
-	printUncle = gender => {
-		if (
-			gender === 'm' && !this.father
-			||
-			gender === 'f' && !this.mother
-		) return false
+	printCousins = () => this.getCousins().forEach(cousin => state.get(cousin).print())
 
-		state
-			.get(gender === 'm' ? this.father : this.mother)
-			.getSiblings()
-			.filter(item => state.get(item).gender === 'm')
-			.forEach(item => state.get(item).print())
-	}
+	printGrandchildren = () => this.getGrandchildren().forEach(child => state.get(child).print())
 
-	printAunt = gender => {
-		if (
-			gender === 'm' && !this.father
-			||
-			gender === 'f' && !this.mother
-		) return false
-
-		state
-			.get(gender === 'm' ? this.father : this.mother)
-			.getSiblings()
-			.filter(item => state.get(item).gender === 'f')
-			.forEach(item => state.get(item).print())
-	}
-
-	printParents = () => {
-		if (this.father) state.get(this.father).print()
-		if (this.mother) state.get(this.mother).print()
-	}
-
-	printGrandparents = () => {
-		if (this.father) state.get(this.father).printParents()
-		if (this.mother) state.get(this.mother).printParents()
-	}
-
-	printCousins = () => {
-		let people = []
-		if (this.father) people.push(
-			...state.get(this.father).getSiblings()
-		)
-		if (this.mother) people.push(
-			...state.get(this.mother).getSiblings()
-		)
-
-		let cousins = []
-
-		people.forEach(item => cousins.push(...state.get(item).children))
-
-		// ensure uniqueness
-
-		cousins = [...new Set(cousins)]
-
-		// print
-
-		cousins.forEach(cousin => state.get(cousin).print())
-	}
-
-	printGrandchildren = () => {
-		let grandchildren = []
-
-		this.children.forEach(child => grandchildren.push(...state.get(child).children))
-
-		// ensure uniqueness
-
-		grandchildren = [...new Set(grandchildren)]
-
-		// print
-
-		grandchildren.forEach(child => state.get(child).print())
-	}
+	// #endregion
 
 }
 
